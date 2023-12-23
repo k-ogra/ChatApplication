@@ -1,0 +1,19 @@
+.chats-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: red;
+
+}
+
+.chats-box {
+    display: flex;
+    flex: 0.7;
+    flex-direction: column;
+}
+
+.chats {
+    background-color: red;
+    display: flex;
+    flex: 1;
+}

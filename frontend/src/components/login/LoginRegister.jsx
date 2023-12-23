@@ -5,7 +5,7 @@ function LoginRegister() {
         <>
             <div className="login-box">
                 <div>Login</div>
-                <TextField label="Email or Username"></TextField>
+                <TextField  label="Email or Username"></TextField>
                 <TextField label="Password"></TextField>
                 <Button variant="outlined">Login</Button>
                 <p>
