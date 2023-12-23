@@ -73,6 +73,23 @@ function Sidebar() {
                             <p className="friend-pfp">t</p>
                             test
                         </div>
+                        <div className="friend">
+                            <p className="friend-pfp">t</p>
+                            test
+                        </div>
+                        <div className="friend">
+                            <p className="friend-pfp">t</p>
+                            test
+                        </div>
+                        <div className="friend">
+                            <p className="friend-pfp">t</p>
+                            test
+                        </div>
+                        <div className="friend">
+                            <p className="friend-pfp">t</p>
+                            test
+                        </div>
+                        
 
 
 
