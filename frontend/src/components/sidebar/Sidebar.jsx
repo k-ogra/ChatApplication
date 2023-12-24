@@ -4,8 +4,13 @@ import { IconButton } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import "./Sidebar.css";
+import { useNavigate } from "react-router-dom";
+import Friend from "../friend/Friend";
+
 
 function Sidebar() {
+    const navigator = useNavigate();
+
     return (
         <>
                 <div className="sidebar-box">
@@ -14,85 +19,26 @@ function Sidebar() {
                             <PersonAddIcon className="button">className="button"</PersonAddIcon>
                             <div className="button-text">Add Friend</div>
                         </IconButton>
-                        <IconButton> 
+                        <IconButton onClick={()=>{navigator('/')}}> 
                             <LogoutIcon className="button"></LogoutIcon>
                             <div className="button-text">Logout</div>
                         </IconButton>
                     </div>
                     <div className="sidebar-friends">
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        <div className="friend">
-                            <p className="friend-pfp">t</p>
-                            test
-                        </div>
-                        
-
-
-
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
+                        <Friend></Friend>
                     </div>
                 </div>
         </>

@@ -9,9 +9,19 @@
     flex-direction: column;
 }
 
-.first-time {
+.register {
     color: teal;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.login-button {
+    color: teal;
+    background-color: teal;
+}
+
+.text-field {
+    background-color: #292B2F;
+    color: white;
 }
 
