@@ -9,8 +9,11 @@ import Friend from "../friend/Friend";
 
 
 function Sidebar() {
-    const navigator = useNavigate();
-
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.setItem("friendData", null);
+        navigate('/');
+    }
     return (
         <>
                 <div className="sidebar-box">
@@ -19,8 +22,8 @@ function Sidebar() {
                             <PersonAddIcon className="button">className="button"</PersonAddIcon>
                             <div className="button-text">Add Friend</div>
                         </IconButton>
-                        <IconButton onClick={()=>{navigator('/')}}> 
-                            <LogoutIcon className="button"></LogoutIcon>
+                        <IconButton onClick={logout}> 
+                            <LogoutIcon className="button" ></LogoutIcon>
                             <div className="button-text">Logout</div>
                         </IconButton>
                     </div>

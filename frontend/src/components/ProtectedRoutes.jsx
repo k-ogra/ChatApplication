@@ -1,10 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 function ProtectedRoutes() {
-    let isAuthenticated = localStorage.getItem("isLogged");
-
+    const isAuthenticated = localStorage.getItem("friendData");
     return (
-        isAuthenticated != true ? <Navigate to="/" /> : <Outlet/>
+        isAuthenticated == "null" ? <Navigate to="/"/> : <Outlet/>
     )
 }
 

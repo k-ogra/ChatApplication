@@ -17,7 +17,7 @@ function App() {
       <div className="App">
       <Routes>
         <Route path="/" element={<LoginRegister />} />
-        <Route>
+        <Route element={<ProtectedRoutes/>}>
           <Route path="ui" element={<UIContainer />}>
             <Route path="starting" element={<Starting />}/>
             <Route path="chat" element={<Chats />}/>

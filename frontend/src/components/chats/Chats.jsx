@@ -2,6 +2,7 @@ import { IconButton } from "@mui/material";
 import MessageIcon from '@mui/icons-material/Message';
 import "./Chats.css";
 import Chat from "../chat/Chat";
+import { useNavigate } from "react-router-dom";
 
 function Chats() {
     return (
