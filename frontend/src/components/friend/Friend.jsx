@@ -1,12 +1,10 @@
 import "./Friend.css";
-function Friend() {
+function Friend({props}) {
     return (
-        <>
-            <div className="friend">
-                <p className="friend-pfp">t</p>
-                test
-            </div>   
-        </>
+        <div className="friend">
+            <p className="friend-pfp">{props[0]}</p>
+            {props[1]}
+        </div>   
     )
 }
 

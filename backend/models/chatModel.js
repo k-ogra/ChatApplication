@@ -10,9 +10,13 @@ const chatModel = mongoose.Schema({
     ],
     mostRecent : {
         type: mongoose.Schema.Types.ObjectId,
-        ref : "Chat"
+        ref : "Message"
+        },
     },
-});
+    {
+        timestamps: true,
+    }
+);
 
-const Chat = mongoose.Model("Chat", chatModel);
+const Chat = mongoose.model("Chat", chatModel);
 module.exports = Chat;

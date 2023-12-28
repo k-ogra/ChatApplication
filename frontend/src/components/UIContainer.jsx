@@ -1,15 +1,18 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import Chats from "./chats/Chats";
+import { createContext, useState } from "react";
 import Sidebar from "./sidebar/Sidebar";
-import Starting from "./starting/Starting";
-import { useEffect } from "react";
-import { redirect } from "react-router-dom";
 
+export const UIContext = createContext();
 function UIContainer() {
+
+    const [refresh, setRefresh] = useState(true);
+
     return  (
         <>
-            <Sidebar></Sidebar>
-            <Outlet />
+            <UIContext.Provider value={{ refresh: refresh, setRefresh: setRefresh }}>
+                <Sidebar></Sidebar>
+                <Outlet />
+            </UIContext.Provider>
         </>
     )
 }

@@ -1,4 +1,3 @@
-const express = require('express');
 const FriendModel = require("../models/friendModel");
 const expressAsyncHandler = require("express-async-handler");
 const generateToken = require('../tokens/generateToken');
@@ -20,14 +19,11 @@ const loginController = expressAsyncHandler(async(req,res) => {
     }
 });
 
-
-
-
 const registerController = expressAsyncHandler(async (req, res) => {
     const {name, password} = req.body;
     if (!name || !password) {
         res.send(400);
-        throw new Error("Name or password not filled");
+        throw new Error("No username or password provided");
     }
 
     const friendExist = await FriendModel.findOne({name});
@@ -48,4 +44,20 @@ const registerController = expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports = {loginController, registerController};
+const getFriendsController = expressAsyncHandler(async (req, res) => {
+    const keyword = req.query.search
+      ? {
+          $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
+          ],
+        }
+      : {};
+  
+    const users = await FriendModel.find(keyword).find({
+      _id: { $ne: req.user._id },
+    });
+    res.send(users);
+  });
+
+module.exports = {loginController, registerController, getFriendsController};

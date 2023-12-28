@@ -35,14 +35,12 @@
     gap: 10px;
     background-color: #202225;
     padding: 10px 10px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .chats {
     display: flex;
     flex: 1;
-    flex-direction: column;
+    flex-direction: column-reverse;
     background-color: #292B2F;
     overflow: scroll;
 }
@@ -58,8 +56,6 @@
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-          rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .message-input {
@@ -71,5 +67,3 @@
     background-color: #202225;
     width: 100%;
 }
-
-

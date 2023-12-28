@@ -11,20 +11,17 @@ function LoginRegister() {
     };
     const inputStyles = {
         color: 'white',
-      };
+    };
     const [isSignUp, setSignUp] = useState(false);
     const [input, setInput] = useState({ name: "", password: "" });
-
+    
     const navigate = useNavigate();
 
     const changeHandler = (e) => {
         setInput({ name: e.target.value, password: e.target.value});
       };
     
-    
-
     const loginHandler = async (e) => {
-        console.log(input);
         try {
           const config = {
             headers: {
@@ -37,13 +34,12 @@ function LoginRegister() {
             input,
             config
           );
-          console.log("Login : ", response);
           localStorage.setItem("friendData", JSON.stringify(response));
           navigate("/ui/starting");
         } catch (error) {
-            console.log("Invalid User name or Password");
+          console.log("Invalid User name or Password");
         }
-      };
+    };
 
     const signUpHandler = async () => {
         try {
@@ -58,13 +54,12 @@ function LoginRegister() {
             input,
             config
           );
-          console.log(response);
-          navigate("/ui/starting");
           localStorage.setItem("friendData", JSON.stringify(response));
+          navigate("/ui/starting");
         } catch (error) {
           console.log(error);
-          }
-        };
+        }
+    };
 
     return (
         <>
@@ -86,13 +81,12 @@ function LoginRegister() {
             <div>Sign Up</div>
             <TextField onChange={changeHandler} InputProps={{style: inputStyles, placeholder: "Username"}} className="text-field"></TextField>
             <TextField onChange={changeHandler} InputProps={{style: inputStyles, placeholder: "Password"}}  type="password" className="text-field"></TextField>
-            <Button variant="outlined" style={buttonStyle} onClick={signUpHandler}> Sign Up</Button>
+            <Button variant="outlined" style={buttonStyle} onClick={signUpHandler}>Sign Up</Button>
             <p>
                 <span className="register" onClick={() => {setSignUp(false)}}>Already have an account?</span>
             </p>
             </div>
         )}
-           
         </> 
     )
 }

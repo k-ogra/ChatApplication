@@ -6,17 +6,13 @@ function Starting() {
     const navigate = useNavigate();
 
     if (!friendData) {
-        console.log("Friend not Authenticated");
         navigate("/");
     }
 
     return (
-        <>
-            <div className="starting">
-                Click or add a friend to get started. 
-            </div>
-        </>
+        <div className="starting">
+            Click or add a friend to get started. 
+        </div>
     )
 }
-
 export default Starting;

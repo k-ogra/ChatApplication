@@ -9,6 +9,7 @@
 
 .chat-container {
     flex: 1.2;
+    justify-content: end;
 }
 
 .chat-text {
@@ -29,10 +30,6 @@
     align-self: flex-start;
     display: flex;
     justify-self: left;
-}
-
-.chat-sender {
-    font-weight: bold;
 }
 
 .time {

@@ -12,7 +12,7 @@ const friendModel = mongoose.Schema({
     },
 },
 {
-    time: true,
+    timestamps: true,
 });
 
 friendModel.methods.matchPassword = async function (enteredPassword) {
@@ -24,7 +24,7 @@ friendModel.methods.matchPassword = async function (enteredPassword) {
       next();
     }
   
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
   });
   
