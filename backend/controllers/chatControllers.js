@@ -64,8 +64,19 @@ const getChats = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteChat = asyncHandler(async (req, res) => {
+  try {
+    const { chatId } = req.body;
+    await Chat.deleteOne({ _id: chatId});
+    console.log("deleted");
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
  
 module.exports = {
   accessChat,
   getChats,
+  deleteChat
 };

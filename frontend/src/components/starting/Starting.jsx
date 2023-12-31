@@ -11,7 +11,7 @@ function Starting() {
 
     return (
         <div className="starting">
-            Click or add a friend to get started. 
+            Click on a Friend or Add a Friend to chat. 
         </div>
     )
 }

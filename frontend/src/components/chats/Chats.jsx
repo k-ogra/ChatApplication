@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UIContext } from "../UIContainer";
 import io from "socket.io-client";
+import ClearIcon from '@mui/icons-material/Clear';
 
 var socket;
 function Chats() {
@@ -17,24 +18,19 @@ function Chats() {
     const [allMessages, setAllMessages] = useState([]);
     const { refresh, setRefresh } = useContext(UIContext);
     const [loaded, setloaded] = useState(false);
-    const [allMessagesCopy, setAllMessagesCopy] = useState([]);
-    const [socketConnectionStatus, setSocketConnectionStatus] = useState(false);
 
     useEffect(() => {
       socket = io("http://localhost:4000");
       socket.emit("setup", friendData);
-      socket.on("connection", () => {
-        setSocketConnectionStatus(!socketConnectionStatus);
-      });
+      console.log("CONNECT")
     }, []);
 
     useEffect(() => {
       socket.on("message received", (newMessage) => {
-        if (allMessagesCopy && allMessagesCopy._id === newMessage._id) {
-          setAllMessages([...allMessages], newMessage);
-        }
+        setAllMessages((allMessages) => [...allMessages, newMessage.data]);
+        socket.off("message received")
       });
-    });
+    }, []);
 
     useEffect(() => {
       const config = {
@@ -48,18 +44,16 @@ function Chats() {
         setloaded(true);
         socket.emit("join chat", chat_id);
       });
-      setAllMessagesCopy(allMessages);
+    }, [refresh, chat_id, friendData.data.token]);
 
-    }, [refresh, chat_id, friendData.data.token, allMessages]);
-
-    const sendMessage = () => {
+    const sendMessage = async () => {
         var data = null;
         const config = {
           headers: {
             Authorization: `Bearer ${friendData.data.token}`,
           },
         };
-        axios
+        await axios
           .post(
             "http://localhost:4000/message/",
             {
@@ -68,38 +62,46 @@ function Chats() {
             },
             config
           )
-          .then(({ response }) => {
+          .then(( response ) => {
+            console.log(response)
             data = response;
             console.log("Message sent");
           });
-        socket.emit("newMessage", data);
+          socket.emit("newMessage", data);
       };
 
-    useEffect(() => {
-        console.log("Refreshed friends");
-        const config = {
-          headers: {
-            Authorization: `Bearer ${friendData.data.token}`,
+    const deleteChat = () => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${friendData.data.token}`,
+        },
+      };
+      axios
+        .put(
+          "http://localhost:4000/chat/",
+          {
+            chatId: chat_id
           },
-        };
-        axios
-          .get("http://localhost:4000/message/" + chat_id, config)
-          .then(({ data }) => {
-            setAllMessages(data);
-            setloaded(true);
-          });
-    }, [refresh, chat_id, friendData.data.token]);
-
+          config
+        );
+    };
+    
     if (!loaded) {
         return (
-          <div>Loading...</div>
+          <div className="loading">Loading...</div>
         )
     } else {
+      console.log(allMessages)
         return (
           <div className="chats-box">
             <div className="chats-header">
               <p className="friend-pfp">{chat_user[0]}</p>
-              <div>{chat_user}</div>
+              <div className="header-text">{chat_user}</div>
+              <IconButton onClick={() => {
+                deleteChat();
+              }}>
+                <ClearIcon className="delete-chat"/>
+              </IconButton>
             </div>
             <div className="chats"> 
                 {allMessages.slice(0).reverse().map((message, index) => {
@@ -130,5 +132,4 @@ function Chats() {
         )
     }
 }
-
 export default Chats;

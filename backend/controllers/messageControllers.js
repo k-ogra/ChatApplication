@@ -28,7 +28,6 @@ const sendMessage = expressAsyncHandler(async (req, res) => {
     content: content,
     chat: chatId,
   };
-
   try {
     var message = await Message.create(newMessage);
 

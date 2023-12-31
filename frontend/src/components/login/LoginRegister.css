@@ -2,26 +2,20 @@
     border-radius: 15px;
     height: 80vh;
     width: 70vw; 
-    background-color: #202225;
+    background-color: #292B2F;
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
+    font-size: 2rem;
+}
+
+.login-text {
+    padding: 10px;
 }
 
 .register {
-    color: teal;
+    color: #0ef;
     text-decoration: underline;
     cursor: pointer;
 }
-
-.login-button {
-    color: teal;
-    background-color: teal;
-}
-
-.text-field {
-    background-color: #292B2F;
-    color: white;
-}
-

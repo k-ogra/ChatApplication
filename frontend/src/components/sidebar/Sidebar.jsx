@@ -72,22 +72,21 @@ function Sidebar() {
               }}>
                 <div
                   key={index}
-                  className="sidebar-friends"
                   onClick={() => {
                     navigate("chat/" + conversation._id + "&" + friendName);
                   }}>
-                  <Friend props={[friendName[0], friendName]}></Friend>
+                    <Friend props={[friendName[0], friendName]}></Friend>
                 </div>
               </div>);
             } else {
               return (
                 <div
                 key={index}
-                className="sidebar-friends"
                 onClick={() => {
                   navigate("chat/" + conversation._id + "&" + friendName);
+                  setRefresh(!refresh);
                 }}>
-                <Friend props={[friendName[0], friendName]}></Friend>
+                  <Friend props={[friendName[0], friendName]}></Friend>
                 </div>);
             }
         })}        

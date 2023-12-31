@@ -32,7 +32,6 @@ app.use("/friend", friendRoutes);
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
 
-
 const PORT = process.env.PORT || 9000;
 
 const server = app.listen(PORT, console.log("Server running"));
@@ -51,16 +50,12 @@ socketio.on("connection", (socket) => {
         socket.join(room);
     });
 
-    socket.on("new message", (newMessageStatus) => {
-        var chat = newMessageStatus.chat;
-        if (!chat.users) {
-            return;
-        }
-        chat.users.forEach((user) => {
-            if (user._id == newMessageStatus.sender._id) {
-                return;
+    socket.on("newMessage", (newMessageReceived) => {
+        newMessageReceived.data.chat.friends.forEach((friend) => {
+            if (newMessageReceived.data.sender._id == friend._id) {
+                return; 
             }
-            socket.in(user._id).emit("message received", newMessageReceived);
-        });
+            socket.in(friend._id).emit("message received", newMessageReceived);
+        })
     });
 });

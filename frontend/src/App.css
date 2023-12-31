@@ -1,12 +1,13 @@
 * {
     margin: 0;
+    font-family: 'Cabin';
 }
 
 .App {
-    background-color: #292B2F;
-    min-height: 100vh;
+    background-color: #202225;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
+    min-height: 100vh;
 }  
