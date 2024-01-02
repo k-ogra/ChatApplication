@@ -3,11 +3,13 @@ import MessageIcon from '@mui/icons-material/Message';
 import "./Chats.css";
 import Chat from "../chat/Chat";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { UIContext } from "../UIContainer";
-import io from "socket.io-client";
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from "react-router-dom";
+import DeleteChatAlert from "../delete-chat-alert/DeleteChatAlert";
+import io from "socket.io-client";
 
 var socket;
 function Chats() {
@@ -18,11 +20,20 @@ function Chats() {
     const [allMessages, setAllMessages] = useState([]);
     const { refresh, setRefresh } = useContext(UIContext);
     const [loaded, setloaded] = useState(false);
+    const deleteChatRef = useRef(null);
 
+    const navigate = useNavigate();
     useEffect(() => {
       socket = io("http://localhost:4000");
       socket.emit("setup", friendData);
-      console.log("CONNECT")
+    }, []);
+
+    useEffect(() => {
+      socket.on("deleteReceiverChat", () => {
+        navigate("/ui/starting");
+        setRefresh(!refresh);
+        socket.off("deleteReceiverChat");
+      });
     }, []);
 
     useEffect(() => {
@@ -71,19 +82,7 @@ function Chats() {
       };
 
     const deleteChat = () => {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${friendData.data.token}`,
-        },
-      };
-      axios
-        .put(
-          "http://localhost:4000/chat/",
-          {
-            chatId: chat_id
-          },
-          config
-        );
+      deleteChatRef.current.show();
     };
     
     if (!loaded) {
@@ -91,7 +90,6 @@ function Chats() {
           <div className="loading">Loading...</div>
         )
     } else {
-      console.log(allMessages)
         return (
           <div className="chats-box">
             <div className="chats-header">
@@ -102,6 +100,7 @@ function Chats() {
               }}>
                 <ClearIcon className="delete-chat"/>
               </IconButton>
+              <DeleteChatAlert ref={deleteChatRef} socket={socket} token={friendData.data.token} chat_id={chat_id}></DeleteChatAlert>
             </div>
             <div className="chats"> 
                 {allMessages.slice(0).reverse().map((message, index) => {

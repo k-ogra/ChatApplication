@@ -22,7 +22,6 @@ const accessChat = asyncHandler(async (req, res) => {
     path: "mostRecent.sender",
     select: "name",
   });
-
   if (isChat.length > 0) {
     res.send(isChat[0]);
   } else {
@@ -69,6 +68,7 @@ const deleteChat = asyncHandler(async (req, res) => {
     const { chatId } = req.body;
     await Chat.deleteOne({ _id: chatId});
     console.log("deleted");
+    res.sendStatus(200);
   } catch (error) {
     res.status(400);
     throw new Error(error.message);

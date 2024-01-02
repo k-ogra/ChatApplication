@@ -12,20 +12,22 @@ function Sidebar() {
     const navigate = useNavigate();
     const logout = () => {
         localStorage.setItem("friendData", null);
-        navigate('/');
-    }
-    const showFriends = () => {
-      navigate("friends");
+        navigate("/");
     }
     const { refresh, setRefresh } = useContext(UIContext);
     const [conversations, setConversations] = useState([]);
     const friendData = JSON.parse(localStorage.getItem("friendData"));
+
+    const showFriends = () => {
+      navigate("friends");
+    }
 
     if (!friendData) {
         console.log("Friend not Authenticated");
         navigate("/");
     }
     const friend = friendData.data;
+
 
     useEffect(() => {
         const config = {

@@ -55,7 +55,12 @@ socketio.on("connection", (socket) => {
             if (newMessageReceived.data.sender._id == friend._id) {
                 return; 
             }
+            console.log("message emmited")
             socket.in(friend._id).emit("message received", newMessageReceived);
         })
+    });
+
+    socket.on("senderDeletedChat", (chat_id) => {
+        socket.to(chat_id).emit("deleteReceiverChat");
     });
 });

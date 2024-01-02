@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginRegister />} />
         <Route element={<ProtectedRoutes/>}>
-          <Route path="ui" element={<UIContainer />}>
+          <Route path="ui" element={<UIContainer/>}>
             <Route path="starting" element={<Starting />}/>
             <Route path="chat/:_id" element={<Chats />}/>
             <Route path="friends" element={<Friends/>}/>

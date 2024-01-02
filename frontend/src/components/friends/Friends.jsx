@@ -10,9 +10,12 @@ function Friends () {
     const navigate = useNavigate();
     const { refresh, setRefresh } = useContext(UIContext);
 
+
     if (!friendData) {
-      navigate(-1);
+      navigate("/");
     }
+
+
 
     useEffect(() => {
       console.log("Friends refreshed");
@@ -34,20 +37,21 @@ function Friends () {
               <div
                 className="friend-list-item"
                 key={index}
-                onClick={() => {
+                onClick={async () => {
                   console.log("Creating chat with ", friend.name);
                   const config = {
                     headers: {
                       Authorization: `Bearer ${friendData.data.token}`,
                     },
                   };
-                  axios.post(
+                  await axios.post(
                     "http://localhost:4000/chat/",
                     {
                       userId: friend._id,
                     },
                     config
                   );
+                  setRefresh(!refresh);
                 }}
               >
                 <p className="friend-pfp">{friend.name[0]}</p>
