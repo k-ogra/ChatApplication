@@ -11,15 +11,15 @@ import { useNavigate } from "react-router-dom";
 import "./DeleteChatAlert.css";
 
 export default forwardRef(function DeleteChatAlert(props, ref) {
-   const [open, setOpen] = useState(false);
-   const navigate = useNavigate();
-   const { refresh, setRefresh } = useContext(UIContext);
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { refresh, setRefresh } = useContext(UIContext);
 
-   const buttonStyle = {
+  const buttonStyle = {
     color: '#0ef', 
     borderColor: '#0ef',
     fontFamily: 'Cabin', 
-    };
+  };
 
   useImperativeHandle(ref, () => ({
     show() {

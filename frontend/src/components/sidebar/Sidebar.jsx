@@ -23,7 +23,6 @@ function Sidebar() {
     }
 
     if (!friendData) {
-        console.log("Friend not Authenticated");
         navigate("/");
     }
     const friend = friendData.data;
@@ -37,7 +36,6 @@ function Sidebar() {
         };
     
         axios.get("http://localhost:4000/chat/", config).then((response) => {
-          console.log("Sidebar refresh", response.data);
           setConversations(response.data);
         });
       }, [refresh]);
@@ -69,13 +67,13 @@ function Sidebar() {
               <div
                 key={index}
                 onClick={() => {
-                console.log("Sidebar refresh");
                 setRefresh(!refresh);
               }}>
                 <div
                   key={index}
                   onClick={() => {
                     navigate("chat/" + conversation._id + "&" + friendName);
+                    setRefresh(!refresh);
                   }}>
                     <Friend props={[friendName[0], friendName]}></Friend>
                 </div>

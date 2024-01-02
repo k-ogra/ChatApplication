@@ -21,26 +21,13 @@ function Chats() {
     const { refresh, setRefresh } = useContext(UIContext);
     const [loaded, setloaded] = useState(false);
     const deleteChatRef = useRef(null);
-
+    const chatIdRef = useRef(null);
+    chatIdRef.current = chat_id;
     const navigate = useNavigate();
+    
     useEffect(() => {
       socket = io("http://localhost:4000");
       socket.emit("setup", friendData);
-    }, []);
-
-    useEffect(() => {
-      socket.on("deleteReceiverChat", () => {
-        navigate("/ui/starting");
-        setRefresh(!refresh);
-        socket.off("deleteReceiverChat");
-      });
-    }, []);
-
-    useEffect(() => {
-      socket.on("message received", (newMessage) => {
-        setAllMessages((allMessages) => [...allMessages, newMessage.data]);
-        socket.off("message received")
-      });
     }, []);
 
     useEffect(() => {
@@ -56,6 +43,25 @@ function Chats() {
         socket.emit("join chat", chat_id);
       });
     }, [refresh, chat_id, friendData.data.token]);
+    
+    useEffect(() => {
+      socket.on("deleteReceiverChat", () => {
+        navigate("/ui/starting");
+        setRefresh(!refresh);
+        socket.off("deleteReceiverChat");
+      });
+    }, []);
+
+    useEffect(() => {
+      socket.on("message received", (newMessage) => {
+        if (newMessage.data.chat._id != chatIdRef.current) {
+          socket.off("message received")
+        } else {
+          setAllMessages((allMessages) => [...allMessages, newMessage.data]);
+          socket.off("message received")
+        }    
+      });
+    }, []);
 
     const sendMessage = async () => {
         var data = null;
@@ -74,9 +80,7 @@ function Chats() {
             config
           )
           .then(( response ) => {
-            console.log(response)
             data = response;
-            console.log("Message sent");
           });
           socket.emit("newMessage", data);
       };

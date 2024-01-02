@@ -18,9 +18,9 @@ app.use(express.json());
 const connectDb = async() => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("db connected");
+        console.log("DB connected");
     } catch (error) {
-        console.log("db not connected");
+        console.log("DB not connected");
     }
 }
 connectDb();
@@ -41,8 +41,8 @@ const socketio = require("socket.io")(server, {
     },
 });
 socketio.on("connection", (socket) => {
-    socket.on("setup", (user) => {
-        socket.join(user.data._id);
+    socket.on("setup", (friend) => {
+        socket.join(friend.data._id);
         socket.emit("connected");
     });
 
@@ -55,9 +55,8 @@ socketio.on("connection", (socket) => {
             if (newMessageReceived.data.sender._id == friend._id) {
                 return; 
             }
-            console.log("message emmited")
-            socket.in(friend._id).emit("message received", newMessageReceived);
-        })
+            socket.to(friend._id).emit("message received", newMessageReceived);
+        });
     });
 
     socket.on("senderDeletedChat", (chat_id) => {

@@ -45,7 +45,6 @@ function LoginRegister() {
     const [input, setInput] = useState({ name: "", password: "" });
     const [logInStatus, setLogInStatus] = useState("");
 
-
     const navigate = useNavigate();
 
     const changeHandler = (e) => {
@@ -53,54 +52,50 @@ function LoginRegister() {
     };
     
     const loginHandler = async () => {
-        try {
-          const config = {
-            headers: {
-              "Content-type": "application/json",
-            },
-          };
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
     
-          const response = await axios.post(
-            "http://localhost:4000/friend/login/",
-            input,
-            config
-          );
-          localStorage.setItem("friendData", JSON.stringify(response));
-          navigate("/ui/starting");
-        } catch (error) {
-            console.log(input);
-            setLogInStatus({message: "Invalid Username or Password"})
-            popupRef.current.show();
-            console.log("Invalid Username or Password");
-        }
+        const response = await axios.post(
+          "http://localhost:4000/friend/login/",
+          input,
+          config
+        );
+        localStorage.setItem("friendData", JSON.stringify(response));
+        navigate("/ui/starting");
+      } catch (error) {
+          setLogInStatus({message: "Invalid Username or Password"})
+          popupRef.current.show();
+      }
     };
 
     const signUpHandler = async () => {
-        try {
-          const config = {
-            headers: {
-              "Content-type": "application/json",
-            },
-          };
-          const response = await axios.post(
-            "http://localhost:4000/friend/register/",
-            input,
-            config
-          );
-          localStorage.setItem("friendData", JSON.stringify(response));
-          navigate("/ui/starting");
-        } catch (error) {
-          setLogInStatus({message: "Username already taken"})
-          popupRef.current.show();
-          console.log("Username already taken");
-          console.log(error);
-        }
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+        const response = await axios.post(
+          "http://localhost:4000/friend/register/",
+          input,
+          config
+        );
+        localStorage.setItem("friendData", JSON.stringify(response));
+        navigate("/ui/starting");
+      } catch (error) {
+        setLogInStatus({message: "Username already taken"})
+        popupRef.current.show();
+      }
     };
 
     return (
         <>
         {!isSignUp ? (
-            <div className="login-box">
+          <div className="login-box">
             <h1 className="login-text">Chat App</h1>
             <StyledTextField onChange={changeHandler} InputProps={{style: inputStyle, placeholder: "Username"}} name="name" variant="outlined" />
             <StyledTextField onChange={changeHandler} InputProps={{style: inputStyle, placeholder: "Password"}} name="password" type="password" variant="outlined" />
@@ -110,12 +105,11 @@ function LoginRegister() {
                 <span className="register" onClick={() => {setSignUp(true)}}>Register Now</span>
             </p>
             <Popup message={logInStatus.message} ref={popupRef}/>
-
-            </div>
+          </div>
         )
         :
         (
-            <div className="login-box">
+          <div className="login-box">
             <h1 className="login-text">Chat App</h1>
             <StyledTextField onChange={changeHandler} InputProps={{style: inputStyle, placeholder: "Username"}} name="name" />
             <StyledTextField onChange={changeHandler} InputProps={{style: inputStyle, placeholder: "Password"}} type="password" name="password" />
@@ -124,7 +118,7 @@ function LoginRegister() {
                 <span className="register" onClick={() => {setSignUp(false)}}>Already have an account?</span>
             </p>
             <Popup message={logInStatus.message} ref={popupRef}/>
-            </div>
+          </div>
         )}
         </> 
     )

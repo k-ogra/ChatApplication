@@ -67,7 +67,6 @@ const deleteChat = asyncHandler(async (req, res) => {
   try {
     const { chatId } = req.body;
     await Chat.deleteOne({ _id: chatId});
-    console.log("deleted");
     res.sendStatus(200);
   } catch (error) {
     res.status(400);

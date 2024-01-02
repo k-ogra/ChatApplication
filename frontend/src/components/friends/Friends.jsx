@@ -10,22 +10,17 @@ function Friends () {
     const navigate = useNavigate();
     const { refresh, setRefresh } = useContext(UIContext);
 
-
     if (!friendData) {
       navigate("/");
     }
 
-
-
     useEffect(() => {
-      console.log("Friends refreshed");
       const config = {
         headers: {
           Authorization: `Bearer ${friendData.data.token}`,
         },
       };
       axios.get("http://localhost:4000/friend/getFriends", config).then((data) => {
-        console.log("Friends Data refreshed in Friends panel");
         setFriends(data.data);
       });
     }, [refresh]);
@@ -38,7 +33,6 @@ function Friends () {
                 className="friend-list-item"
                 key={index}
                 onClick={async () => {
-                  console.log("Creating chat with ", friend.name);
                   const config = {
                     headers: {
                       Authorization: `Bearer ${friendData.data.token}`,
